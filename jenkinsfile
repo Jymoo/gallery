@@ -25,11 +25,11 @@ pipeline {
         }
         
         
-        //  stage('Build Application') {
-        //     steps {
-        //           sh 'npm run build'
-        //     }
-        // }
+        stage('Build Application') {
+            steps {
+                 sh 'npm run build'
+            }
+        }
 
        
 
@@ -41,28 +41,7 @@ pipeline {
                 }
             }
         }
-        
-        // stage('Deploy to Fly.io') {
-        //     environment {
-        //         FLY_API_TOKEN = credentials('fly_api_token')
-        //     }
-        //     steps {
-        //         sh 'flyctl deploy --app my-app-name --token $FLY_API_TOKEN'
-        //     }
-        // }
-        
-        // post {
-        //     success {
-        //         slackSend(channel: '#your-channel', message: 'Pipeline succeeded! :white_check_mark:')
-        //     }
-            
-        //     failure {
-        //         slackSend(channel: '#your-channel', message: 'Pipeline failed! :x:')
-        //     }
-        // }
-        
-        
-        
+
         stage('Slack') {
             steps {
                 slackSend message: 'Gallary_Pipeline IP deployed  SUCCESS'
