@@ -12,29 +12,21 @@ let image = require('./routes/image');
 const app = express();
 
 // connecting the database
-<<<<<<< HEAD
+
 //let mongodb_url = 'mongodb://localhost:27017/';
 let mongodb_url = 'mongodb+srv://mongo:EGR8eRYJBXoqcppX@cluster0.kj5eajm.mongodb.net/?retryWrites=true&w=majority';
 let dbName = 'Gallerydb';
 mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
     if (err) console.log(err)
-=======
 
-const MONGODB_URI = process.env.MONGODB_URI || config.mongoURI[app.settings.env]
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true  },(err)=>{
-    if (err) {
-        console.log(err)
-    }else{
-        console.log(`Connected to Database: ${MONGODB_URI}`)
-    }
->>>>>>> remotes/origin/test
+
 });
 
-// test if the database has connected successfully
-// let db = mongoose.connection;
-// db.once('open', ()=>{
-//     console.log('Database connected successfully')
-// })
+ //test if the database has connected successfully
+ let db = mongoose.connection;
+ db.once('open', ()=>{
+     console.log('Database connected successfully')
+ })
 
 
 
