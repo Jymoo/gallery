@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+    tools{
+        nodejs "node"
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+               git 'https://github.com/Jymoo/gallery.git'
+             
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        
+        
+        //  stage('Build Application') {
+        //     steps {
+        //           sh 'npm run build'
+        //     }
+        // }
+
+       
+
+        stage('Deploy to Render') {
+            steps {
+                withCredentials([string(credentialsId: 'rnd_npTaSBLTuECMHcJTNVoYkeW6xojO', variable: 'RENDER_TOKEN')]) {
+                    sh 'render login --token $RENDER_TOKEN'
+                    sh 'render deploy -- --dockerfile ./Dockerfile --branch main'
+                }
+            }
+        }
+        
+        // stage('Deploy to Fly.io') {
+        //     environment {
+        //         FLY_API_TOKEN = credentials('fly_api_token')
+        //     }
+        //     steps {
+        //         sh 'flyctl deploy --app my-app-name --token $FLY_API_TOKEN'
+        //     }
+        // }
+        
+        // post {
+        //     success {
+        //         slackSend(channel: '#your-channel', message: 'Pipeline succeeded! :white_check_mark:')
+        //     }
+            
+        //     failure {
+        //         slackSend(channel: '#your-channel', message: 'Pipeline failed! :x:')
+        //     }
+        // }
+        
+        
+        
+        stage('Slack') {
+            steps {
+                slackSend message: 'Gallary_Pipeline IP deployed  SUCCESS'
+            }
+        }
+    
+        
+    }
+}
