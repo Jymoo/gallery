@@ -17,10 +17,16 @@ describe('Photos', function(){
         chai.request(server)
         .get('/')
         .end(function(err,res){
+            if (err) {
+                done(err); // Call done with error if request encountered an error
+              } else {
             res.should.have.status(200);
             res.should.be.html;
             res.body.should.be.a('object')
-            done();
+            done(); // Call done to indicate that the test case has completed successfully
+              }
         })
     });
 })
+
+
