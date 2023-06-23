@@ -12,7 +12,6 @@ let image = require('./routes/image');
 const app = express();
 
 // connecting the database
-
 //let mongodb_url = 'mongodb://localhost:27017/';
 let mongodb_url = 'mongodb+srv://mongo:EGR8eRYJBXoqcppX@cluster0.kj5eajm.mongodb.net/?retryWrites=true&w=majority';
 let dbName = 'Gallerydb';
