@@ -14,8 +14,10 @@ Forwarding                    https://1121-41-90-188-163.in.ngrok.io -> http://l
 Connections                   ttl     opn     rt1     rt5     p50     p90                                                                                                                                          
                               1       0       0.00    0.00    0.00    0.00                                                                                                                                         
                                                                                                                                                                                                                    
-HTTP Requests                                   
-
+                                                                                                                                                                                                                  
+Connections                   ttl     opn     rt1     rt5     p50     p90                                                                                                                                          
+                              0       0       0.00    0.00    0.00    0.00                                                                                                                                         
+                                                                           
 
 
 
