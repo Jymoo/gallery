@@ -25,21 +25,33 @@ pipeline {
         }
         
         
-        stage('Build Application') {
+         stage('Build Application') {
             steps {
-                 sh 'npm run build'
+                  sh 'npm run build'
             }
         }
 
        
-
-        stage('Deploy to Render') {
-            steps {
-                withCredentials([string(credentialsId: 'rnd_npTaSBLTuECMHcJTNVoYkeW6xojO', variable: 'RENDER_TOKEN')]) {
-                    sh 'render login --token $RENDER_TOKEN'
-                    sh 'render deploy -- --dockerfile ./Dockerfile --branch main'
+        pararel{
+            stage('Deploy to Render') {
+                steps {
+                    withCredentials([string(credentialsId: 'rnd_npTaSBLTuECMHcJTNVoYkeW6xojO', variable: 'RENDER_TOKEN')]) {
+                        sh 'render login --token $RENDER_TOKEN'
+                        sh 'render deploy -- --dockerfile ./Dockerfile --branch main'
+                    }
                 }
             }
+            
+
+            stage('Deploy to Heroku') {
+                steps {
+                    withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )]){
+                    sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/frozen-wave-45383.git master'
+                    
+                    }
+                }
+            } 
+        
         }
 
         stage('Slack') {
